@@ -1,8 +1,8 @@
 <template>
     <div>
         <SearchBar v-on:termChange="onTermChange"></SearchBar>
-        <VideoList></VideoList>
-        {{ videos.length }}
+        <!-- adding a directive to this tag to communicate from parent to child, v-bind -->
+        <VideoList v-bind:videos="videos"></VideoList> 
     </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
 
     },
     data(){
-        return { videos: [] };
+        return { videos: [] }; //initializes data, array of objects
     },
     methods: {
         onTermChange(searchTerm){
@@ -33,7 +33,7 @@ export default {
                     q: searchTerm
                 }
             }).then(response => {
-                this.videos = response.data.items
+                this.videos = response.data.items //response from youtube api
             });
         }
     }
