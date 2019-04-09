@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <SearchBar v-on:termChange="onTermChange"></SearchBar>
         <!-- adding a directive to this tag to communicate from parent to child, v-bind -->
         <VideoList v-bind:videos="videos"></VideoList> 
