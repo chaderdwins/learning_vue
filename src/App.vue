@@ -1,26 +1,32 @@
 <template>
     <div class="container">
         <SearchBar v-on:termChange="onTermChange"></SearchBar>
-        <!-- adding a directive to this tag to communicate from parent to child, v-bind -->
-        <VideoList v-bind:videos="videos"></VideoList> 
+        <div class="row">
+            <VideoDetail v-bind:video="selectedVideo"/>
+            <VideoList @videoSelect="onVideoSelect" v-bind:videos="videos"></VideoList> 
+        </div>
+
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
-import VideoList from './components/VideoList'
+import VideoList from './components/VideoList';
+import VideoDetail from './components/VideoDetail';
+
 const API_KEY = 'AIzaSyCCiM9V1KH6WdAhyGWZEMUXOPxlJf7ocsY'
 
 export default {
     name: 'App', //define properties within default
     components: {
         SearchBar: SearchBar,
-        VideoList: VideoList
+        VideoList: VideoList,
+        VideoDetail
 
     },
     data(){
-        return { videos: [] }; //initializes data, array of objects
+        return { videos: [], selectedVideo: null }; //initializes data, array of objects
     },
     methods: {
         onTermChange(searchTerm){
@@ -35,6 +41,9 @@ export default {
             }).then(response => {
                 this.videos = response.data.items //response from youtube api
             });
+        },
+        onVideoSelect(video) {
+            this.selectedVideo = video;
         }
     }
 

@@ -1,9 +1,10 @@
 <template>
-    <ul class="list-group">
+    <ul class="list-group col-md-4">
         <VideoListItem 
         v-for="video in videos"
         v-bind:video="video"
         v-bind:key="video.etag"
+        @videoSelect="onVideoSelect"
         >
         </VideoListItem>
     </ul>
@@ -21,6 +22,11 @@ export default {
   // props will tell the child what to expect to receive from the parent
   props: {
     videos: Array
+  },
+  methods: {
+    onVideoSelect(video) {
+      this.$emit('videoSelect', video);
+    }
   }
 };
 </script>
